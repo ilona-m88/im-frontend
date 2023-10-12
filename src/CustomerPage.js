@@ -7,6 +7,29 @@ const CustomerPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
   const [customerDetails, setCustomerDetails] = useState({});
+  const [newCustomer, setNewCustomer] = useState({ firstName: '', lastName: '', email: '' });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewCustomer(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const addCustomer = async () => {
+    try {
+      const response = await Axios.post('http://localhost:3001/addCustomer', newCustomer);
+      if (response.data.success) {
+        alert(response.data.message);
+        // Reset form
+        setNewCustomer({ firstName: '', lastName: '', email: '' });
+        // Optionally refresh the customer list
+      }
+    } catch (error) {
+      console.error("Error adding new customer:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -22,11 +45,17 @@ const CustomerPage = () => {
   }, [searchTerm]);
 
   const handleCustomerClick = async (customerId) => {
+    // If the clicked customer's details are currently displayed, hide them.
+    if (selectedCustomerId === customerId) {
+      setSelectedCustomerId(null);
+      return;
+    }
+  
     if (customerDetails[customerId]) {
       setSelectedCustomerId(customerId);
       return; // If already fetched, just toggle display
     }
-
+  
     try {
       const response = await Axios.get(`http://localhost:3001/getCustomerRentals/${customerId}`);
       setCustomerDetails(prevDetails => ({
@@ -38,6 +67,7 @@ const CustomerPage = () => {
       console.error("Error fetching customer rentals:", error);
     }
   };
+  
 
   const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -114,6 +144,31 @@ const CustomerPage = () => {
           </li>
         ))}
       </ul>
+      <h2>Add New Customer</h2>
+      <div className="customer-form">
+        <input
+          type="text"
+          name="firstName"
+          value={newCustomer.firstName}
+          onChange={handleInputChange}
+          placeholder="First Name"
+        />
+        <input
+          type="text"
+          name="lastName"
+          value={newCustomer.lastName}
+          onChange={handleInputChange}
+          placeholder="Last Name"
+        />
+        <input
+          type="email"
+          name="email"
+          value={newCustomer.email}
+          onChange={handleInputChange}
+          placeholder="Email"
+        />
+        <button onClick={addCustomer}>Add Customer</button>
+      </div>
     </div>
   );
 };
