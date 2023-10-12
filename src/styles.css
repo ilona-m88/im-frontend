@@ -17,13 +17,13 @@
   .styled-button {
     margin: 10px; /*  spacing between buttons */
   }
-  /* Move the search input down lower in customers */
+  /*  search input  */
 .search-container {
   margin-top: 50px;
   text-align: center;
 }
 
-/* Center the customer information */
+/* customer information */
 .customer-info {
   text-align: center;
 }
@@ -36,34 +36,40 @@
     border-radius: 10px;
     font-size: 20px;
   }
-  /* Style the generate PDF button */
+  /* generate PDF button */
   .report-actions button {
-    background-color: #3370ff; /* button background color */
+    background-color: #0c55ff; /* button background color */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
     font-size: 28px;
   }
-/* Center-align the Add New Customer title */
+/* Add New Customer title */
 .add-customer-title {
-  color: #ff3333; /* Title color */
+  color: #ff3333; 
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
 }
 
-.center-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* Center vertically */
-  text-align: center;
-  height: 100vh; /* Set the container height to fill the viewport */
+/*  top 5 movies */
+.top-movies-title {
+  color: #ff3333; 
+  font-size: 30px;
+  text-align: left; 
+  margin-top: 20px; 
 }
 
+/*  top 5 actors */
+.top-actors-title {
+  color: #ff3333; 
+  font-size: 30px;
+  text-align: left; 
+  margin-top: 20px; 
+}
 
   .styled-button button:hover {
-    background-color: #602ecc; /* Change this to the hover color you prefer */
+    background-color: #ff0000;
   }
   

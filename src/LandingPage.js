@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './styles.css';
+
 
 function LandingPage({ topMovies }) {
   console.log("Frontend topMovies:", topMovies);
@@ -61,67 +63,75 @@ function LandingPage({ topMovies }) {
     };
     fetchTopActors();
   }, []);
-
   return (
     <div className="d-flex vh-100 bg-primary justify-content-center align-items-center flex-column">
       <div className="container text-center">
-        <h1 className="text-white mb-4">Home page</h1>
-        <div className="d-flex justify-content-center mb-4">
-          <Link to="/movies" className="btn btn-lg btn-danger mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Movies</Link>
-          <Link to="/customers" className="btn btn-success mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Customers</Link>
-          <Link to="/report" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Report</Link>
+        <h1 className="text-white mb-4 colorful-title">Home page</h1> 
+        <div className="d-flex justify-content-center mb-4 button-container"> 
+          <Link to="/movies" className="styled-button" >
+            <button>Movies</button>
+          </Link>
+          <Link to="/customers" className="styled-button" >
+            <button>Customers</button>
+          </Link>
+          <Link to="/report"  className="styled-button" >
+            <button>Report</button>
+          </Link>
         </div>
-        <h2 className="mb-4 text-white">Top 5 Rented Movies</h2>
-        <ul className="list-group">
-          {topMovies.map(movie => (
-            <li key={movie.title} className="list-group-item" onClick={() => handleMovieClick(movie)}>
-              <div className="d-flex justify-content-between">
-                <span>{movie.title}</span>
-                {selectedMovie === movie && (
-                  <div>
-                    <p><strong>Description:</strong> {movie.description}</p>
-                    <p><strong>Rented:</strong> {movie.rental_count} times</p>
-                  </div>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-5">
-          <h3 className="text-white">Top 5 Actors</h3>
-          <ul className="list-group">
-            {topActors.map(actor => (
-              <React.Fragment key={actor.actor_id}>
-                <li className="list-group-item" onClick={() => handleActorClick(actor)}>
-                  {actor.first_name} {actor.last_name}
-                </li>
-                {selectedActor === actor && (
-                  <React.Fragment>
-                    <div className="mt-4">
-                      <h3>Actor Details:</h3>
-                      <p><strong>Name:</strong> {selectedActor.first_name} {selectedActor.last_name}</p>
-                    </div>
-                    {actorMovies.length > 0 && (
-                      <div className="mt-4">
-                        <h3>Top 5 Rented Movies by {selectedActor.first_name} {selectedActor.last_name}</h3>
-                        <ul className="list-group">
-                          {actorMovies.map(movie => (
-                            <li key={movie.film_id} className="list-group-item">
-                              {movie.title}
-                            </li>
-                          ))}
-                        </ul>
+        <div className="row">
+          <div className="col-md-6">
+            <h2 className="mb-4 text-white top-movies-title">Top 5 Rented Movies</h2> 
+            <ul className="list-group">
+              {topMovies.map(movie => (
+                <li key={movie.title} className="list-group-item" onClick={() => handleMovieClick(movie)}>
+                  <div className="d-flex justify-content-between">
+                    <span>{movie.title}</span>
+                    {selectedMovie === movie && (
+                      <div>
+                        <p><strong>Description:</strong> {movie.description}</p>
+                        <p><strong>Rented:</strong> {movie.rental_count} times</p>
                       </div>
                     )}
-                  </React.Fragment>
-                )}
-              </React.Fragment>
-            ))}
-          </ul>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-md-6">
+            <h3 className="text-white top-actors-title">Top 5 Actors</h3> 
+            <ul className="list-group">
+              {topActors.map(actor => (
+                <React.Fragment key={actor.actor_id}>
+                  <li className="list-group-item" onClick={() => handleActorClick(actor)}>
+                    {actor.first_name} {actor.last_name}
+                  </li>
+                  {selectedActor === actor && (
+                    <React.Fragment>
+                      <div className="mt-4">
+                        <h3>Actor Details:</h3>
+                        <p><strong>Name:</strong> {selectedActor.first_name} {selectedActor.last_name}</p>
+                      </div>
+                      {actorMovies.length > 0 && (
+                        <div className="mt-4">
+                          <h3>Top 5 Rented Movies by {selectedActor.first_name} {selectedActor.last_name}</h3>
+                          <ul className="list-group">
+                            {actorMovies.map(movie => (
+                              <li key={movie.film_id} className="list-group-item">
+                                {movie.title}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  )}
+                </React.Fragment>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
 export default LandingPage;
