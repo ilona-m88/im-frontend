@@ -1,0 +1,41 @@
+/* styles.css */
+
+.colorful-title {
+    color: #ff3333; /*  title color */
+    font-size: 40px;
+    text-align: center;
+  }
+  
+  .button-container {
+    text-align: center;
+  }
+  .report-actions {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .styled-button {
+    margin: 10px; /*  spacing between buttons */
+  }
+  
+  .styled-button button {
+    background-color: #ff9233; /*  button background color */
+    color: white;
+    padding: 20px 100px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+  }
+  .report-actions button {
+    background-color: #3370ff; /* button background color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 28px;
+  }
+  
+  .styled-button button:hover {
+    background-color: #602ecc; /* Change this to the hover color you prefer */
+  }
+  

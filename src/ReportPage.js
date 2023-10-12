@@ -2,6 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import jsPDF from 'jspdf';
 import { Link } from 'react-router-dom'; 
+import './styles.css'; 
 
 const ReportPage = () => {
 
@@ -34,14 +35,20 @@ const ReportPage = () => {
 
     return (
         <div>
-            <h1>Report Page</h1>
-            <div className="navigation-buttons">
-                <Link to="/"><button>Home</button></Link>
-                <Link to="/movies"><button>Movies</button></Link>
-                <Link to="/customers"><button>Customers</button></Link>
+            <h1 className="colorful-title">Report Page</h1>
+            <div className="button-container">
+                 <Link to="/" className="styled-button">
+                  <button>Home</button>
+                 </Link>
+                 <Link to="/movies" className="styled-button">
+                  <button>Movies</button>
+                 </Link>
+                 <Link to="/customers" className="styled-button">
+                  <button>Customers</button>
+                 </Link> {/* Close the Link tag here */}
             </div>
             <div className="report-actions">
-                <button onClick={generatePDF}>Generate PDF</button>
+                 <button onClick={generatePDF}>Generate PDF</button>
             </div>
         </div>
     );
