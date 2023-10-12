@@ -37,6 +37,7 @@ function MoviePage({ topMovies }) {
             console.error("Error renting movie:", error);
         }
     };
+    
 
 
     const handleSelectMovie = async (movie) => {
@@ -90,7 +91,6 @@ function MoviePage({ topMovies }) {
                             <p><strong>Actors:</strong> {selectedMovie.actors.join(', ')}</p>
                         )}
                         <p><strong>Rental Rate:</strong> {selectedMovie.rental_rate}</p>
-                        <p><strong>Rented:</strong> {selectedMovie.rental_count} times</p>
 
                         {/* "Rent Movie" button associated with the selected movie */}
                         {showRentButton && (
@@ -107,7 +107,7 @@ function MoviePage({ topMovies }) {
                     <li key={movie.film_id}>
                         <span
                             onClick={() => handleSelectMovie(movie)}
-                            style={{ cursor: 'pointer', textDecoration: 'underline' }}
+                            style={{ cursor: 'pointer' }}
                         >
                             {movie.title}
                         </span>
