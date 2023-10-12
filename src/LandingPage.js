@@ -69,7 +69,7 @@ function LandingPage({ topMovies }) {
         <div className="d-flex justify-content-center mb-4">
           <Link to="/movies" className="btn btn-lg btn-danger mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Movies</Link>
           <Link to="/customers" className="btn btn-success mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Customers</Link>
-          <Link to="/reports" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Reports</Link>
+          <Link to="/report" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>Report</Link>
         </div>
         <h2 className="mb-4 text-white">Top 5 Rented Movies</h2>
         <ul className="list-group">

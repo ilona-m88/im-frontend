@@ -57,8 +57,8 @@ function MoviePage({ topMovies }) {
                     <Link to="/customers" className="btn btn-success mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
                         Customers
                     </Link>
-                    <Link to="/reports" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
-                        Reports
+                    <Link to="/report" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
+                        Report
                     </Link>
                 </div>
             </div>

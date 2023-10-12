@@ -107,8 +107,7 @@ const updateCustomer = async () => {
       const response = await Axios.put(`http://localhost:3001/updateCustomer/${editingCustomer.customer_id}`, { firstName, lastName, email });
       if (response.data.success) {
           alert(response.data.message);
-          setEditingCustomer(null);  // Exit editing mode
-          // Optionally refresh the customer list to see updated details
+          setEditingCustomer(null); 
       } else {
           alert('Failed to update customer details.');  // Add this for additional debugging.
       }
@@ -160,8 +159,8 @@ const handleReturnMovie = async (rentalId) => {
           <Link to="/movies" className="btn btn-success mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
             Movies
           </Link>
-          <Link to="/reports" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
-            Reports
+          <Link to="/report" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
+            Report
           </Link>
         </div>
       </div>

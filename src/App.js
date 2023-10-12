@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import MoviePage from './MoviePage'; 
 import CustomerPage from './CustomerPage';
+import ReportPage from './ReportPage';
+
 
 const App = () => {
   const [topMovies, setTopMovies] = useState([]);
@@ -39,7 +41,8 @@ const App = () => {
           <Route path="/" element={<LandingPage topMovies={topMovies} topActors={topActors} />} />
           <Route path="/movies" element={<MoviePage topMovies={topMovies} />} /> 
           <Route path="/customers" element={<CustomerPage />} /> 
-          {/* Additional routes can go here */}
+          <Route path="/report" element={<ReportPage />} />
+   
         </Routes>
       </BrowserRouter>
     </div>
