@@ -8,6 +8,8 @@ const CustomerPage = () => {
   const [selectedCustomerId, setSelectedCustomerId] = useState(null);
   const [customerDetails, setCustomerDetails] = useState({});
   const [newCustomer, setNewCustomer] = useState({ firstName: '', lastName: '', email: '' });
+  const [editingCustomer, setEditingCustomer] = useState(null);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,17 +21,21 @@ const CustomerPage = () => {
 
   const addCustomer = async () => {
     try {
-      const response = await Axios.post('http://localhost:3001/addCustomer', newCustomer);
-      if (response.data.success) {
-        alert(response.data.message);
-        // Reset form
-        setNewCustomer({ firstName: '', lastName: '', email: '' });
-        // Optionally refresh the customer list
-      }
+        const response = await Axios.post('http://localhost:3001/addCustomer', newCustomer);
+        if (response.data.success) {
+            alert(response.data.message);
+            // Reset form
+            setNewCustomer({ firstName: '', lastName: '', email: '' });
+            
+            // Fetch the customers' list again
+            const newCustomers = await Axios.get(`http://localhost:3001/getCustomers`);
+            setCustomers(newCustomers.data);
+        }
     } catch (error) {
-      console.error("Error adding new customer:", error);
+        console.error("Error adding new customer:", error);
     }
-  };
+};
+
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -83,6 +89,57 @@ const CustomerPage = () => {
     }
   };
 
+
+const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditingCustomer(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
+};
+const handleEditSubmit = () => {
+  updateCustomer();
+};
+
+const updateCustomer = async () => {
+  try {
+      const response = await Axios.put(`http://localhost:3001/updateCustomer/${editingCustomer.customer_id}`, editingCustomer);
+      if (response.data.success) {
+          alert(response.data.message);
+          setEditingCustomer(null);  // Exit editing mode
+          // Optionally refresh the customer list to see updated details
+      } else {
+          alert('Failed to update customer details.');  // Add this for additional debugging.
+      }
+  } catch (error) {
+      console.error("Error updating customer:", error);
+      alert('Error updating customer. Please check the console for more details.');
+  }
+};
+
+const startEditing = (customer) => {
+  setEditingCustomer({
+    ...customer,
+    first_name: customer.first_name || '',
+    last_name: customer.last_name || '',
+    email: customer.email || ''
+  });
+};
+
+const deleteCustomer = async (customerId) => {
+  try {
+      const response = await Axios.delete(`http://localhost:3001/deleteCustomer/${customerId}`);
+      if (response.data.success) {
+          alert(response.data.message);
+          // Update the customers list to remove the deleted customer
+          // or refresh the customers list.
+      }
+  } catch (error) {
+      console.error("Error deleting customer:", error);
+  }
+};
+
+
   return (
     <div>
       <div className="text-center my-4">
@@ -123,7 +180,7 @@ const CustomerPage = () => {
       </div>
 
       <ul>
-      {customers.map((customer) => (
+      {customers && customers.map((customer) => (
           <li key={customer.customer_id}>
             <span onClick={() => handleCustomerClick(customer.customer_id)}>
                 {customer.first_name} {customer.last_name}
@@ -139,6 +196,41 @@ const CustomerPage = () => {
                     <p>Rental Date: {rental.rental_date}</p>
                   </div>
                 ))}
+                
+        
+                {!editingCustomer && <button onClick={() => setEditingCustomer(customer)}>Edit</button>}
+                {editingCustomer && editingCustomer.customer_id === customer.customer_id && (
+                  <div>
+                    <input
+                      type="text"
+                      name="first_name"
+                      value={editingCustomer.first_name}
+                      onChange={handleEditChange}
+                      placeholder="First Name"
+                    />
+                    <input
+                      type="text"
+                      name="last_name"
+                      value={editingCustomer.last_name}
+                      onChange={handleEditChange}
+                      placeholder="Last Name"
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      value={editingCustomer.email}
+                      onChange={handleEditChange}
+                      placeholder="Email"
+                    />
+                    <button onClick={handleEditSubmit}>Submit</button>
+                    <button onClick={() => setEditingCustomer(null)}>Cancel</button>
+                  </div>
+                )}
+                <button onClick={() => {
+            if (window.confirm("Are you sure you want to delete this customer?")) {
+                deleteCustomer(customer.customer_id);
+            }
+        }}>Delete</button>
               </div>
             }
           </li>
