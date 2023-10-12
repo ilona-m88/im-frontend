@@ -17,7 +17,16 @@
   .styled-button {
     margin: 10px; /*  spacing between buttons */
   }
-  
+  /* Move the search input down lower */
+.search-container {
+  margin-top: 50px;
+  text-align: center;
+}
+/* Center the customer information */
+.customer-info {
+  text-align: center;
+}
+  /* Style the  buttons */
   .styled-button button {
     background-color: #ff9233; /*  button background color */
     color: white;
@@ -26,6 +35,7 @@
     border-radius: 10px;
     font-size: 20px;
   }
+  /* Style the generate PDF button */
   .report-actions button {
     background-color: #3370ff; /* button background color */
     color: white;
@@ -34,6 +44,13 @@
     border-radius: 10px;
     font-size: 28px;
   }
+/* Center-align the Add New Customer title */
+.add-customer-title {
+  color: #ff3333; /* Title color */
+  font-size: 30px;
+  text-align: center;
+  margin-top: 20px;
+}
   
   .styled-button button:hover {
     background-color: #602ecc; /* Change this to the hover color you prefer */

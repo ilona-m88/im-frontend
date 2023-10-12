@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import './styles.css';
 
 const CustomerPage = () => {
   const [customers, setCustomers] = useState([]);
@@ -151,21 +152,21 @@ const handleReturnMovie = async (rentalId) => {
   return (
     <div>
       <div className="text-center my-4">
-        <h1 className="text-dark mb-4">Customers</h1>
-        <div className="d-flex justify-content-center" style={{ marginBottom: '50px' }}>
-          <Link to="/" className="btn btn-warning mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
-            Home
-          </Link>
-          <Link to="/movies" className="btn btn-success mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
-            Movies
-          </Link>
-          <Link to="/report" className="btn btn-info mx-3" style={{ fontSize: '24px', padding: '15px 50px' }}>
-            Report
-          </Link>
-        </div>
-      </div>
+        <h1 className="colorful-title">Customers Page</h1> 
+        <div className="button-container">
+           <Link to="/" className="styled-button">
+              <button>Home</button>
+                </Link>
+                 <Link to="/movies" className="styled-button">
+                    <button>Movies</button>
+                      </Link>
+                        <Link to="/report" className="styled-button">
+                           <button>Report</button>
+    </Link>
+  </div>
+</div>
 
-      <div className="container text-center"> {/* Center the search input and button */}
+      <div className="container text-center search-container"> {/* Center the search button */}
         <div className="row justify-content-center">
           <div className="col-8 col-md-6 col-lg-4">
             <div className="input-group mb-3">
@@ -197,9 +198,10 @@ const handleReturnMovie = async (rentalId) => {
               <div>
                 <p>ID: {customerDetails[customer.customer_id][0]?.customer_id}</p>
                 <p>Email: {customerDetails[customer.customer_id][0]?.email}</p>
+                <p>Rental History:</p>
                 {customerDetails[customer.customer_id].map((rental, index) => (
                   <div key={index}>
-                    <p>Rental History:</p>
+            
                     <p>Title: {rental.title}</p>
                     <p>Rental Date: {rental.rental_date}</p>
                     {rental.return_date ? (
@@ -249,8 +251,9 @@ const handleReturnMovie = async (rentalId) => {
           </li>
         ))}
       </ul>
-      <h2>Add New Customer</h2>
+      <h2 className="add-customer-title" >Add New Customer</h2>
       <div className="customer-form">
+      <div className="customer-info">
         <input
           type="text"
           name="firstName"
@@ -274,6 +277,7 @@ const handleReturnMovie = async (rentalId) => {
         />
         <button onClick={addCustomer}>Add Customer</button>
       </div>
+    </div>
     </div>
   );
 };

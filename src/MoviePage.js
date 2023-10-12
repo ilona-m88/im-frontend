@@ -76,15 +76,7 @@ function MoviePage({ topMovies }) {
                     Search
                 </button>
 
-                <div className="mt-3">
-                    <label htmlFor="customerId">Customer ID:</label>
-                    <input
-                        type="text"
-                        id="customerId"
-                        value={customerId}
-                        onChange={(e) => setCustomerId(e.target.value)}
-                    />
-                </div>
+                
 
                 {/* Render the "Rent Movie" button when a movie is selected */}
                 {showRentButton && (
