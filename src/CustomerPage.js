@@ -11,6 +11,7 @@ const CustomerPage = () => {
   const [editingCustomer, setEditingCustomer] = useState(null);
 
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewCustomer(prevState => ({
@@ -59,7 +60,7 @@ const CustomerPage = () => {
   
     if (customerDetails[customerId]) {
       setSelectedCustomerId(customerId);
-      return; // If already fetched, just toggle display
+      return; 
     }
   
     try {
@@ -80,7 +81,6 @@ const CustomerPage = () => {
   };
 
   const handleSearch = async () => {
-    // Add code to perform the search when the button is clicked
     try {
       const response = await Axios.get(`http://localhost:3001/getCustomers?q=${searchTerm}`);
       setCustomers(response.data);
@@ -103,7 +103,8 @@ const handleEditSubmit = () => {
 
 const updateCustomer = async () => {
   try {
-      const response = await Axios.put(`http://localhost:3001/updateCustomer/${editingCustomer.customer_id}`, editingCustomer);
+    const { first_name: firstName, last_name: lastName, email } = editingCustomer;
+      const response = await Axios.put(`http://localhost:3001/updateCustomer/${editingCustomer.customer_id}`, { firstName, lastName, email });
       if (response.data.success) {
           alert(response.data.message);
           setEditingCustomer(null);  // Exit editing mode
@@ -117,14 +118,7 @@ const updateCustomer = async () => {
   }
 };
 
-const startEditing = (customer) => {
-  setEditingCustomer({
-    ...customer,
-    first_name: customer.first_name || '',
-    last_name: customer.last_name || '',
-    email: customer.email || ''
-  });
-};
+
 
 const deleteCustomer = async (customerId) => {
   try {
@@ -138,6 +132,21 @@ const deleteCustomer = async (customerId) => {
       console.error("Error deleting customer:", error);
   }
 };
+const handleReturnMovie = async (rentalId) => {
+  try {
+      const response = await Axios.put('http://localhost:3001/returnMovie', { rentalId });
+      if (response.data.success) {
+          alert(response.data.message);
+          // Refresh rental history for the current customer to reflect the return
+          handleCustomerClick(selectedCustomerId);
+      } else {
+          alert('Failed to return the movie.');
+      }
+  } catch (error) {
+      console.error("Error returning movie:", error);
+  }
+};
+
 
 
   return (
@@ -194,6 +203,11 @@ const deleteCustomer = async (customerId) => {
                     <p>Rental History:</p>
                     <p>Title: {rental.title}</p>
                     <p>Rental Date: {rental.rental_date}</p>
+                    {rental.return_date ? (
+            <p className="returned">Returned on: {rental.return_date}</p>
+        ) : (
+            <p className="not-returned">Not returned yet</p>
+        )}
                   </div>
                 ))}
                 
